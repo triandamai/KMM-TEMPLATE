@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS Note(
+    noteId TEXT NOT NULL PRIMARY KEY,
+    noteName TEXT NOT NULL
+);
+
+selectAll:
+SELECT *
+FROM Note;
