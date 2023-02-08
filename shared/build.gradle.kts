@@ -26,7 +26,7 @@ kotlin {
     sourceSets {
         val commonMain by getting{
             dependencies{
-                with(KtorDeps.IO.Ktor){
+                with(Ktor.IO.Ktor){
                     implementation(ktorClientCore)
                     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 }
@@ -39,10 +39,10 @@ kotlin {
         }
         val androidMain by getting{
             dependencies {
-                with(SQLDelightDeps.App.Cash.Sqldelight){
+                with(SQLDelight.App.Cash.Sqldelight){
                     implementation(androidDriver)
                 }
-                with(KtorDeps.IO.Ktor){
+                with(Ktor.IO.Ktor){
                     implementation(ktorAndroidClient)
                 }
             }
@@ -57,10 +57,10 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                with(SQLDelightDeps.App.Cash.Sqldelight){
+                with(SQLDelight.App.Cash.Sqldelight){
                     implementation(nativeDriver)
                 }
-                with(KtorDeps.IO.Ktor){
+                with(Ktor.IO.Ktor){
                     implementation(ktorIosClient)
                 }
             }

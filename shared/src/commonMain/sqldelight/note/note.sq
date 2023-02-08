@@ -1,8 +1,12 @@
 CREATE TABLE IF NOT EXISTS Note(
     noteId TEXT NOT NULL PRIMARY KEY,
-    noteName TEXT NOT NULL
+    noteName TEXT NOT NULL,
+    noteDescription TEXT NOT NULL
 );
 
 selectAll:
 SELECT *
 FROM Note;
+
+insertNote:
+INSERT INTO Note(noteId,noteName,noteDescription) VALUES (?,?,?);

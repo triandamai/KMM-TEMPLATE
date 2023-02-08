@@ -8,6 +8,7 @@ import io.ktor.client.statement.bodyAsText
 class NoteApi(
      private val client:HttpClient
 ) {
+     private val BASE_URL = "https://ktor.io/"
      suspend fun signInWithEmail(email:String,password:String) =
-          client.get("https://ktor.io/docs/welcome.html").bodyAsText()
+          client.get("${BASE_URL}/docs/welcome.html").bodyAsText()
 }

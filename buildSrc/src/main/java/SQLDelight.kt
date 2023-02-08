@@ -1,4 +1,4 @@
-object SQLDelightDeps {
+object SQLDelight {
     object App{
         object Cash{
             object Sqldelight{

@@ -1,4 +1,4 @@
-object KtorDeps {
+object Ktor {
     object IO{
         object Ktor{
             val ktorClientCore by lazy{"io.ktor:ktor-client-core:2.2.3"}

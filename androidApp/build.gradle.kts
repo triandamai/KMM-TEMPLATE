@@ -1,13 +1,16 @@
 plugins {
     id("com.android.application")
+    id("com.google.dagger.hilt.android")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
     namespace = "app.trian.learnkmm.android"
     compileSdk = 33
     defaultConfig {
-        applicationId = "app.trian.learnkmm.android"
+        applicationId =
+            "app.trian.learnkmm.android"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
@@ -30,8 +33,10 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility =
+            JavaVersion.VERSION_1_8
+        targetCompatibility =
+            JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -40,15 +45,55 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.3.1")
-    implementation("androidx.compose.ui:ui-tooling:1.3.1")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.3.1")
-    implementation("androidx.compose.foundation:foundation:1.3.1")
-    implementation("androidx.compose.material:material:1.3.1")
-    implementation("androidx.activity:activity-compose:1.6.1")
-    implementation("androidx.core:core-ktx:+")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-    debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")
-    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.10")
+
+    implementation(AndroidX.Core.coreKtx)
+    implementation(AndroidX.Lifecycle.runtimeLifecycleKtx)
+    implementation(AndroidX.Activity.activityCompose)
+    implementation(AndroidX.Multidex.multidex)
+    implementation(AndroidX.Navigation.navigationCompose)
+
+    with(JetpackCompose) {
+        implementation(platform(composeBom))
+        androidTestImplementation(
+            platform(
+                composeBom
+            )
+        )
+        implementation(material3)
+        implementation(ui)
+        implementation(uiToolingPreview)
+        debugImplementation(uiTooling)
+        androidTestImplementation(uiTestJunit4)
+        debugImplementation(uiTestManifest)
+        implementation(materialIconExtended)
+        implementation(materialWindowSizeClass)
+    }
+    with(Accompanist) {
+        implementation(pager)
+        implementation(pagerIndicator)
+        implementation(flowLayout)
+    }
+    with(Hilt) {
+        implementation(hiltNavigationCompose)
+        implementation(hiltWork)
+        implementation(hiltAndroid)
+        kapt(hiltAndroidCompiler)
+        kapt(hiltCompiler)
+    }
+
+    with(Worker) {
+        implementation(workRuntime)
+    }
+    implementation(Jetbrains.Kotlinx.kotlinxCoroutineAndroid)
+
+    with(Chucker) {
+        debugImplementation(chuckerDebug)
+        releaseImplementation(chuckerRelease)
+    }
+    debugImplementation(LeakCanary.leakCanary)
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

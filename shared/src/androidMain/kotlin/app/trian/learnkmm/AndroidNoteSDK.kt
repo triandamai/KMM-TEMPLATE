@@ -1,13 +1,14 @@
 package app.trian.learnkmm
 
+import android.content.Context
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import okhttp3.Interceptor
 
 
-fun createAndroidSDK(driverFactory: DriverFactory, interceptor: Interceptor): NoteSDK {
+fun createAndroidSDK(context:Context, interceptor: Interceptor): NoteSDK {
     return NoteSDK(
-        driverFactory = driverFactory,
+        driverFactory = DriverFactory(context),
         httpClient = HttpClient(
             OkHttp
         ) {

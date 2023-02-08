@@ -34,14 +34,13 @@ class MainActivity : ComponentActivity() {
             .build()
 
         val sdk = createAndroidSDK(
-            driverFactory = DriverFactory(this@MainActivity),
+            context = this@MainActivity,
             interceptor =chuckerBuilder
         )
 
         setContent {
             LaunchedEffect(key1 = sdk, block = {
-                Log.e("HOHO","HEHE")
-               sdk.api.signInWithEmail("sa","")
+
             })
             MyApplicationTheme {
                 Surface(
