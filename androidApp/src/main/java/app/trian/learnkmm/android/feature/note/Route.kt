@@ -1,4 +1,4 @@
-package app.trian.learnkmm.android.feature.signIn
+package app.trian.learnkmm.android.feature.note
 
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -7,26 +7,28 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 
-object SignIn {
-    const val routeName = "SignIn"
+object Note {
+    const val routeName = "Note"
 }
 
-fun NavGraphBuilder.routeSignIn(
+fun NavGraphBuilder.routeNote(
     router: NavHostController,
 ) {
-    composable(SignIn.routeName) {
+    composable(Note.routeName) {
         val viewModel =
-            hiltViewModel<SignInViewModel>()
+            hiltViewModel<NoteViewModel>()
 
         val dataNotes by viewModel.dataNotes.collectAsState(
             listOf()
         )
 
-        ScreenSignIn(
-            notes=dataNotes,
-            onSubmit = { email, password ->
-                viewModel.insertNewNote { b, s ->
-                }
+        ScreenNote(
+            notes = dataNotes,
+            onDelete = { noteId ->
+                viewModel.deleteNoteById(noteId)
+            },
+            onSubmit = { noteName ->
+                viewModel.insertNewNote(noteName) { b, s -> }
             }
         )
 

@@ -10,3 +10,6 @@ FROM Note;
 
 insertNote:
 INSERT INTO Note(noteId,noteName,noteDescription) VALUES (?,?,?);
+
+deleteNoteById:
+DELETE FROM Note WHERE noteId=?;

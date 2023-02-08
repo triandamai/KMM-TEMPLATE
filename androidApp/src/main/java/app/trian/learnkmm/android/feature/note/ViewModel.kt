@@ -1,4 +1,4 @@
-package app.trian.learnkmm.android.feature.signIn
+package app.trian.learnkmm.android.feature.note
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +12,7 @@ import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(
+class NoteViewModel @Inject constructor(
     private val noteSDK: NoteSDK
 ) : ViewModel() {
 
@@ -24,30 +24,26 @@ class SignInViewModel @Inject constructor(
         getAllNotes()
     }
 
-    fun signInWithEmailAndPassword(
-        email: String,
-        password: String,
-        result: (Boolean, String) -> Unit
-    ) = with(viewModelScope) {
-        launch {
-            noteSDK.signInWithEmailAndPassword(
-                "",
-                ""
-            )
-        }
-    }
 
     fun insertNewNote(
+        noteName:String,
         result: (Boolean, String) -> Unit
     ) = with(viewModelScope) {
         launch {
             noteSDK.insertNewNote(
                 NoteModel(
                     noteId = UUID.randomUUID().toString(),
-                    noteName = "Ini Name",
-                    noteDescription = "Ini Description"
+                    noteName = noteName,
+                    noteDescription = "Ini Description dari $noteName"
                 )
             )
+            getAllNotes()
+        }
+    }
+
+    fun deleteNoteById(noteId: String) = with(viewModelScope) {
+        launch {
+            noteSDK.deleteNoteById(noteId)
             getAllNotes()
         }
     }

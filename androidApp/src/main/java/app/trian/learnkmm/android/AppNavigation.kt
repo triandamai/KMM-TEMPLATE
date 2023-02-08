@@ -2,8 +2,8 @@ package app.trian.learnkmm.android
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
-import app.trian.learnkmm.android.feature.signIn.SignIn
-import app.trian.learnkmm.android.feature.signIn.routeSignIn
+import app.trian.learnkmm.android.feature.note.Note
+import app.trian.learnkmm.android.feature.note.routeNote
 
 @Composable
 fun AppNavigation(
@@ -11,8 +11,8 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = applicationState.router,
-        startDestination = SignIn.routeName
+        startDestination = Note.routeName
     ) {
-        routeSignIn(applicationState.router)
+        routeNote(applicationState.router)
     }
 }

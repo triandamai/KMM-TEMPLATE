@@ -40,18 +40,26 @@ class NoteSDK(
     @Throws(
         Exception::class
     )
-    suspend fun insertNewNote(data: NoteModel): Pair<Boolean, String> {
+    suspend fun insertNewNote(data: NoteModel): Triple<Boolean, String, NoteModel> {
         db.noteQueries.insertNote(
             noteId = data.noteId,
             noteName = data.noteName,
             noteDescription = data.noteDescription
         )
 
-        return Pair(
+        return Triple(
             true,
-            "Success"
+            "Success",
+            data
         )
 
+    }
+
+    @Throws(Exception::class)
+    suspend fun deleteNoteById(noteId:String):Pair<Boolean,String> {
+        db.noteQueries.deleteNoteById(noteId)
+
+        return Pair(true,"Success")
     }
 
 }
