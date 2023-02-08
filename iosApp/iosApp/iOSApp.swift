@@ -1,10 +1,12 @@
 import SwiftUI
+import shared
 
 @main
 struct iOSApp: App {
-	var body: some Scene {
+    let sdk = CreateIOSSDK().createNoteSDK()
+    var body: some Scene {
 		WindowGroup {
-			ContentView()
+            ContentView(viewModel: .init(sdk: sdk))
 		}
 	}
 }

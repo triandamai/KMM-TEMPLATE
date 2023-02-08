@@ -1,5 +1,7 @@
 package app.trian.learnkmm.android.feature.signIn
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -16,12 +18,14 @@ fun NavGraphBuilder.routeSignIn(
         val viewModel =
             hiltViewModel<SignInViewModel>()
 
+        val dataNotes by viewModel.dataNotes.collectAsState(
+            listOf()
+        )
+
         ScreenSignIn(
+            notes=dataNotes,
             onSubmit = { email, password ->
-                viewModel.signInWithEmailAndPassword(
-                    email,
-                    password
-                ) { success, message ->
+                viewModel.insertNewNote { b, s ->
                 }
             }
         )

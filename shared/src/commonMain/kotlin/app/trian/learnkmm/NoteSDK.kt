@@ -10,34 +10,48 @@ class NoteSDK(
     private val api = NoteApi(httpClient)
     private val db = createDatabase(driverFactory)
 
+    @Throws(
+        Exception::class
+    )
     suspend fun signInWithEmailAndPassword(
         email: String,
         password: String
     ): Pair<Boolean, String> {
 
-        api.signInWithEmail(email,password)
-        return Pair(true, "Tes")
+        val res =
+            api.signInWithEmail(email, password)
+        return Pair(true, res)
     }
 
-    suspend fun getListAllNote(): List<NoteModel> =
-        with(db) {
-            noteQueries.selectAll()
-                .executeAsList().map {
-                    NoteModel(
-                        noteId = it.noteId,
-                        noteName = it.noteName,
-                        noteDescription = it.noteDescription
-                    )
-                }
-        }
+    @Throws(
+        Exception::class
+    )
+    suspend fun getListAllNote(): List<NoteModel> {
+        return db.noteQueries.selectAll()
+            .executeAsList().map {
+                NoteModel(
+                    noteId = it.noteId,
+                    noteName = it.noteName,
+                    noteDescription = it.noteDescription
+                )
+            }
+    }
 
-    suspend fun insertNewNote(data: NoteModel) =
-        with(db) {
-            noteQueries.insertNote(
-                noteId = data.noteId,
-                noteName = data.noteName,
-                noteDescription = data.noteDescription
-            )
-        }
+    @Throws(
+        Exception::class
+    )
+    suspend fun insertNewNote(data: NoteModel): Pair<Boolean, String> {
+        db.noteQueries.insertNote(
+            noteId = data.noteId,
+            noteName = data.noteName,
+            noteDescription = data.noteDescription
+        )
+
+        return Pair(
+            true,
+            "Success"
+        )
+
+    }
 
 }
