@@ -24,28 +24,7 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val collector = ChuckerCollector(
-            context = this@MainActivity,
-            showNotification = true,
-            retentionPeriod = RetentionManager.Period.ONE_HOUR
-        )
-        val chuckerBuilder =
-            ChuckerInterceptor.Builder(this@MainActivity)
-                .collector(
-                    collector
-                )
-                .build()
-
-        val sdk = createAndroidSDK(
-            context = this@MainActivity,
-            interceptor = chuckerBuilder
-        )
-
         setContent {
-            LaunchedEffect(key1 = sdk, block = {
-
-            })
             BaseMainApp {
                 AppNavigation(applicationState = it)
             }
