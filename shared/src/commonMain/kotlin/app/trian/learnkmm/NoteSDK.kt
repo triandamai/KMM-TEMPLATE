@@ -15,6 +15,7 @@ class NoteSDK(
         password: String
     ): Pair<Boolean, String> {
 
+        api.signInWithEmail(email,password)
         return Pair(true, "Tes")
     }
 

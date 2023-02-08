@@ -12,12 +12,15 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import app.trian.learnkmm.DriverFactory
+import app.trian.learnkmm.android.base.BaseMainApp
 import app.trian.learnkmm.createAndroidSDK
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,42 +30,25 @@ class MainActivity : ComponentActivity() {
             showNotification = true,
             retentionPeriod = RetentionManager.Period.ONE_HOUR
         )
-        val chuckerBuilder = ChuckerInterceptor.Builder(this@MainActivity)
-            .collector(
-                collector
-            )
-            .build()
+        val chuckerBuilder =
+            ChuckerInterceptor.Builder(this@MainActivity)
+                .collector(
+                    collector
+                )
+                .build()
 
         val sdk = createAndroidSDK(
             context = this@MainActivity,
-            interceptor =chuckerBuilder
+            interceptor = chuckerBuilder
         )
 
         setContent {
             LaunchedEffect(key1 = sdk, block = {
 
             })
-            MyApplicationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    GreetingView("Hellow worled")
-                }
+            BaseMainApp {
+                AppNavigation(applicationState = it)
             }
         }
-    }
-}
-
-@Composable
-fun GreetingView(text: String) {
-    Text(text = text)
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        GreetingView("Hello, Android!")
     }
 }
